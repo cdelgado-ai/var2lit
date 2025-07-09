@@ -1,0 +1,10 @@
+# Creating a VCF file from a ClinVar VCF file that includes 700 variants for the 7 chromosomes (100 variants per chromosome)
+
+# Step 1: Create a new file with only the VCF header
+grep "^#" clinvar_20250615.vcf > clinvar_20250615_subset700variantschr1to7.vcf
+
+# Step 2: Loop over chromosomes 1 to 7 and extract 100 variants from each
+for chr in {1..7}; do
+  awk -v c="$chr" '$1 == c' clinvar_20250615.vcf | head -n 100 >> clinvar_20250615_subset700variantschr1to7.vcf
+done
+
